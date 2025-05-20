@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmpService {
-    private final EmpDao empDao;
+    private  EmpDao empDao;
     public EmpService(EmpDao empDao) {
         this.empDao = empDao;
     }

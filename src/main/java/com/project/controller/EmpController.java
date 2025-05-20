@@ -1,10 +1,14 @@
 package com.project.controller;
 
 import com.project.entity.Emp;
+import com.project.exception.EmpAlreadyExistException;
+import com.project.exception.ErrorException;
+import com.project.exception.NoSuchEmpExistException;
 import com.project.services.EmpService;
 import jdk.jfr.Category;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +34,11 @@ private EmpService empService;
    public Emp getEmp(@PathVariable("empId") int id) {
         return empService.getEmp(id);
    }
+
    @PutMapping("/update/{empId}")
    public String updateEmp(@RequestBody Emp emp, @PathVariable("empId") int id) {
        return empService.updateEmp(emp, id);
    }
+
+
 }
