@@ -13,10 +13,10 @@ public class EmpService {
         this.empDao = empDao;
     }
      public String addEmp(Emp emp) {
-       Emp e = empDao.findByeName(emp.getEName()).orElse(null);
-       if (e != null) {
-           throw new EmpAlreadyExistException("Emp with name " + emp.getEName() + " already exists");
-       }
+//       Emp e = empDao.findByEName(emp.getEName()).orElse(null);
+//       if (e != null) {
+//           throw new EmpAlreadyExistException("Emp with name " + emp.getEName() + " already exists");
+//       }
        empDao.save(emp);
        return "Emp added successfully";
      }
@@ -24,7 +24,7 @@ public class EmpService {
      public Emp getEmp(int id) {
         Emp e= empDao.findById(id).orElse(null);
         if (e == null) {
-            throw new NoSuchEmpExistException("Emp with id " + id + " already exists");
+            throw new NoSuchEmpExistException("Emp with id " + id + " not found");
         }
         return e;
      }
@@ -32,7 +32,7 @@ public class EmpService {
      public String  updateEmp(Emp emp , int id) {
          Emp e= empDao.findById(id).orElse(null);
          if (e == null) {
-             throw new NoSuchEmpExistException("Emp with id " + id + " already exists");
+            throw new NoSuchEmpExistException("Emp with id " + id + " not found");
 
          }
          e.setEName(emp.getEName());
@@ -40,4 +40,13 @@ public class EmpService {
          empDao.save(e);
          return "Emp updated successfully";
      }
+
+    public String deleteEmp(int id) {
+        Emp e = empDao.findById(id).orElse(null);
+        if (e == null) {
+            throw new NoSuchEmpExistException("Emp with id " + id + " not found");
+        }
+        empDao.delete(e);
+        return "Emp deleted successfully";
+    }
 }

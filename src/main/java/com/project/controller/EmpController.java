@@ -1,21 +1,14 @@
 package com.project.controller;
 
 import com.project.entity.Emp;
-import com.project.exception.EmpAlreadyExistException;
-import com.project.exception.ErrorException;
-import com.project.exception.NoSuchEmpExistException;
 import com.project.services.EmpService;
-import jdk.jfr.Category;
-import lombok.AllArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-//@AllArgsConstructor
 @RestController
 @RequestMapping("/api/emp")
 public class EmpController {
@@ -25,8 +18,10 @@ private EmpService empService;
     public EmpController(EmpService empService) {
         this.empService = empService;
     }
+
+
     @PostMapping("/add")
-   public String addEmp(@RequestBody Emp emp) {
+   public String addEmp(@Valid  @RequestBody Emp emp) {
     return empService.addEmp(emp);
    }
 
@@ -41,4 +36,8 @@ private EmpService empService;
    }
 
 
+   @DeleteMapping("/delete/{empId}")
+   public String deleteEmp(@PathVariable("empId") int id) {
+       return empService.deleteEmp(id);
+   }
 }
