@@ -13,10 +13,10 @@ public class EmpService {
         this.empDao = empDao;
     }
      public String addEmp(Emp emp) {
-//       Emp e = empDao.findByEName(emp.getEName()).orElse(null);
-//       if (e != null) {
-//           throw new EmpAlreadyExistException("Emp with name " + emp.getEName() + " already exists");
-//       }
+       Emp e = empDao.findByEName(emp.getEName()).orElse(null);
+       if (e != null) {
+           throw new EmpAlreadyExistException("Emp with name " + emp.getEName() + " already exists");
+       }
        empDao.save(emp);
        return "Emp added successfully";
      }
